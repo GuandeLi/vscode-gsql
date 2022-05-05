@@ -1,0 +1,88 @@
+{
+  "name": "vscode-gsql",
+  "displayName": "vscode-gsql",
+  "description": "VSCode extension for gsql",
+  "version": "0.0.4",
+  "author": "Orange",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/GuandeLi/vscode-gsql.git"
+  },
+  "icon": "assets/images/logo-dark.png",
+  "publisher": "GuandeLi",
+  "categories": [
+    "Programming Languages"
+  ],
+  "engines": {
+    "vscode": "^1.66.0"
+  },
+  "keywords": [
+    "TigerGraph",
+    "gsql"
+  ],
+  "activationEvents": [
+    "onLanguage:gsql"
+  ],
+  "capabilities": {
+    "hoverProvider": "true",
+    "completionProvider": "true"
+  },
+  "main": "./out/extension.js",
+  "contributes": {
+    "languages": [
+      {
+        "id": "gsql",
+        "aliases": [
+          "GSQL",
+          "gsql"
+        ],
+        "extensions": [
+          ".gsql"
+        ],
+        "icon": {
+          "light": "assets/images/logo-dark.png",
+          "dark": "assets/images/logo-dark.png"
+        },
+        "configuration": "syntaxes/gsql-configuration.json"
+      }
+    ],
+    "grammars": [
+			{
+				"language": "gsql",
+				"scopeName": "source.gsql",
+				"path": "syntaxes/gsql.tmLanguage.json"
+			}
+		],
+    "snippets": [
+      {
+        "language": "gsql",
+        "path": "syntaxes/snippets.json"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/glob": "^7.2.0",
+    "@types/mocha": "^9.1.1",
+    "@types/node": "14.x",
+    "@types/vscode": "^1.66.0",
+    "@typescript-eslint/eslint-plugin": "^5.21.0",
+    "@typescript-eslint/parser": "^5.21.0",
+    "@vscode/test-electron": "^2.1.3",
+    "eslint": "^8.14.0",
+    "glob": "^8.0.1",
+    "mocha": "^9.2.2",
+    "typescript": "^4.6.4"
+  },
+  "dependencies": {
+    "web-tree-sitter": "^0.20.5"
+  }
+}

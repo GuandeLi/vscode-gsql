@@ -1,0 +1,1 @@
+export const SELECTOR = { language: 'gsql', scheme: 'file' }; // register for all Java documents from the local file system

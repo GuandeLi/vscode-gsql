@@ -1,0 +1,52 @@
+{
+	"Create a query": {
+		"prefix": "cqfg",
+		"body": [
+			"CREATE QUERY $1($2) FOR GRAPH $3 {",
+			"\t$4",
+			"\tPRINT \"$5\"",
+			"}"
+		],
+		"description": "Create a query"
+	},
+
+	"Create or replace a query": {
+		"prefix": "corqfg",
+		"body": [
+			"CREATE OR REPLACE QUERY $1($2) FOR GRAPH $3 {",
+			"\t$4",
+			"\tPRINT \"$5\"",
+			"}"
+		],
+		"description": "Create or replace a query"
+	},
+
+	"Select from": {
+		"prefix": "sf",
+		"body": [
+			"SELECT $1",
+			"FROM $2"
+		],
+		"description": "Select ... form ..."
+	},
+
+	"Select from where": {
+		"prefix": "sfw",
+		"body": [
+			"SELECT $1",
+			"FROM $2",
+			"WHERE $3"
+		],
+		"description": "Select ... form ... where ..."
+	},
+
+	"If then end": {
+		"prefix": "ite",
+		"body": [
+			"IF $1 THEN",
+			"\t$2",
+			"END"
+		],
+		"description": "IF ... THEN ... END"
+	}
+}
