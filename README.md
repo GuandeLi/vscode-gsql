@@ -28,4 +28,4 @@
 		END
 		```
 ### functions:
-	![image](https://user-images.githubusercontent.com/59431928/166932016-5aafd6d8-f0a5-4439-b4f0-5425ec301fa1.png)
+	![Functions Example](https://user-images.githubusercontent.com/59431928/166932016-5aafd6d8-f0a5-4439-b4f0-5425ec301fa1.png)
