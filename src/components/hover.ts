@@ -9,8 +9,10 @@ export default vscode.languages.registerHoverProvider('gsql', {
     const tree = parserDocument(document.getText());
     (function f(node: Parser.SyntaxNode) {
       if (
-        node.startIndex <= position.character &&
-        node.endIndex >= position.character
+        node.startPosition.column <= position.character &&
+        node.endPosition.column >= position.character &&
+        node.startPosition.row <= position.line &&
+        node.endPosition.row >= position.line
       ) {
         contents.push(node.type);
       }

@@ -1,11 +1,18 @@
 import * as vscode from 'vscode';
-import { SELECTOR } from './contants';
+import { FUNCTIONS, KEYWORD, SELECTOR } from './contants';
 
 export default vscode.languages.registerCompletionItemProvider(SELECTOR, {
-  provideCompletionItems(document, position, token) {
-    return [{
-      label: 'CREATE',
+  provideCompletionItems() {
+    const keywords = KEYWORD.map(kw => ({
+      label: kw,
       kind: vscode.CompletionItemKind.Keyword
-    }];
+    }));
+    const functions: vscode.CompletionItem[] = FUNCTIONS.map(func => ({
+      label: func.label,
+      detail: func.detail,
+      documentation: func.documentation,
+      kind: vscode.CompletionItemKind.Function
+    }));
+    return [...keywords, ...functions];
   }
 });
