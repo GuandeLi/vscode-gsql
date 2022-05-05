@@ -48,12 +48,12 @@
       }
     ],
     "grammars": [
-			{
-				"language": "gsql",
-				"scopeName": "source.gsql",
-				"path": "syntaxes/gsql.tmLanguage.json"
-			}
-		],
+      {
+        "language": "gsql",
+        "scopeName": "source.gsql",
+        "path": "syntaxes/gsql.tmLanguage.json"
+      }
+    ],
     "snippets": [
       {
         "language": "gsql",
