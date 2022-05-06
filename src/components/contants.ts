@@ -1222,4 +1222,473 @@ export const FUNCTIONS: vscode.CompletionItem[] = [
       instr("This is the thing", "is", 3) -> 5;
     `
   },
+  {
+    label: 'left()',
+    detail: 'left(str, number_of_chars)',
+    documentation: `
+    - Description
+      Extracts a number of characters from a string starting from position 0 (capturing left to right).
+
+    - Return type
+      STRING
+
+    - Parameters
+      Parameter: str
+      Description: A string value
+      Data type: STRING
+
+      Parameter: number_of_chars
+      Description: The number of characters to extract
+      Data type: INT
+    `
+  },
+  {
+    label: 'length()',
+    detail: 'length(str)',
+    documentation: `
+    - Description
+      Returns the length of the input string.
+
+    - Return type
+      INT
+
+    - Parameters
+      Parameter: str
+      Description: The string whose length to evaluate
+      Data type: STRING
+
+    - Example
+      length("hello world") -> 11
+      length("") -> 0
+    `
+  },
+  {
+    label: 'ltrim()',
+    detail: 'ltrim( str[, set] )',
+    documentation: `
+    - Description
+      Removes all occurrences of the characters contained in a set from a string from the left side.、
+      The function begins scanning the string from its first character, removing all characters that appear in set until reaching a character not in set, then returning the result.
+
+    - Return type
+      STRING
+
+    - Parameters
+      Parameter: str
+      Description: A string value
+      Data type: STRING
+
+      Parameter: set
+      Description: Optional. A string of characters. The distinct characters from the string form the set. If not specified, it defaults to a single space.
+      Data type: STRING
+    `
+  },
+  {
+    label: 'lower()',
+    detail: 'lower(str)',
+    documentation: `
+    - Description
+      Returns the input string with all letters in lowercase.
+
+    - Return type
+      STRING
+
+    - Parameters
+      Parameter: str
+      Description: The string to convert to lowercase
+      Data type: STRING
+
+    - Example
+      lower("GSQL") -> "gsql"
+    `
+  },
+  {
+    label: 'lpad()',
+    detail: 'lpad(str, padded_length [, pad_str] )',
+    documentation: `
+    - Description
+      Pads the left side of a string with another pad string. If the pad string pad_str is omitted, it will pad with white space. If the parameter length is smaller than the original string, it will truncate the string from the right side.
+
+    - Return type
+      STRING
+
+    - Parameters
+      Parameter: str
+      Description: The string to pad characters to
+      Data type: STRING
+
+      Parameter: padded_length
+      Description: The number of characters to return. If the padded_length is smaller than the original string, the lpad function will truncate the string to the size of padded_length.
+      Data type: INT
+
+      Parameter: pad_str
+      Description: Optional. This is the string that will be padded to the left-hand side of str. If this parameter is omitted, the lpad function will pad spaces to the left side of str.
+      Data type: STRING
+
+    - Example
+      lpad("PQR", 5) -> "  PQR"
+      lpad("PQR", 2) -> "PQ"
+      lpad("PQR", 10, "ABC") -> "ABCABCAPQR"
+    `
+  },
+  {
+    label: 'replace()',
+    detail: 'replace(str, str_to_replace [, replacement_str])',
+    documentation: `
+    - Description
+      Replaces a sequence of characters in a string with another set of characters.
+
+    - Return type
+      STRING
+
+    - Parameters
+      Parameter: str
+      Description: The original string whose substrings are to be replaced
+      Data type: STRING
+
+      Parameter: str_to_replace
+      Description: The string that will be searched for and replaced in str
+      Data type: STRING
+
+      Parameter: replacement_str
+      Description: Optional. The string that will replace str_to_replace. If omitted, replace() removes all occurrences of string_to_replace and returns the resulting string.
+      Data type: STRING
+
+    - Examples
+      replace("SSQLL", "S", "G") -> "GGQLL"
+      replace("SSQLL", "SQL", "Q") -> "SQL"
+      replace("SSQLL", "L") -> "SSQ"
+    `
+  },
+  {
+    label: 'right()',
+    detail: 'right(str, number_of_chars)',
+    documentation: `
+    - Description
+      Extracts a number of characters from a string starting from the right.
+
+    - Return type
+      STRING
+
+    - Parameters
+      Parameter: str
+      Description: A string value
+      Data type: STRING
+
+      Parameter: number_of_chars
+      Description: The number of characters to extract
+      Data type: INT
+    `
+  },
+  {
+    label: 'rpad()',
+    detail: 'rpad(str, padded_length [, pad_str] )',
+    documentation: `
+    - Description
+      Pads the right side of a string (str) with another pad string. If the pad string (pad_str) is omitted, it will pad with white space. If the parameter length is smaller than the original string, it will truncate the string from the right side.
+
+    - Return type
+      STRING
+
+    - Parameters
+      Parameter: str
+      Description: The string to pad characters to
+      Data type: STRING
+
+      Parameter: padded_length
+      Description: The number of characters to return. If the padded_length is smaller than the original string, the lpad function will truncate the string to the size of padded_length.
+      Data type: INT
+
+      Parameter: pad_str
+      Description: Optional. This is the string that will be padded to the right-hand side of str. If this parameter is omitted, the lpad function will pad spaces to the right side of str.
+      Data type: STRING
+
+    - Example
+      rpad("PQR", 5) -> "PQF  "
+      lpad("PQR", 2) -> "PQ"
+      lpad("PQR", 10, "ABC") -> "ABCABCAPQR"
+    `
+  },
+  {
+    label: 'rtrim()',
+    detail: 'rtrim( str [,set] )',
+    documentation: `
+    - Description
+      Removes all occurrences of the characters contained in a set from a string from the right side.
+      The function begins scanning the string from its last character and removes all characters that appear in set until reaching a character not in set and then returns the result.
+
+    - Return type
+      STRING
+
+    - Parameters
+      Parameter: str
+      Description: A string value
+      Data type: STRING
+
+      Parameter: set
+      Description: Optional. A string of characters. The distinct characters from the string form the set. If not specified, it defaults to a single space.
+      Data type: STRING
+    `
+  },
+  {
+    label: 'soundex()',
+    detail: 'soundex( str )',
+    documentation: `
+    - Description
+      1.  Returns a character string containing the Soundex code of str. This function lets you compare words that are spelled differently, but sound alike in English.
+          Soundex is a phonetic algorithm defined in The Art of Computer Programming, Volume 3: Sorting and Searching, by Donald E. Knuth, as follows:
+          Retain the first letter of the string and remove all other occurrences of the following letters: a, e, h, i, o, u, w, y.
+      2.  Assign numbers to the remaining letters (after the first) as follows:
+          b, f, p, v = 1
+          c, g, j, k, q, s, x, z = 2
+          d, t = 3
+          l = 4
+          m, n = 5
+          r = 6
+      3.  If two or more letters with the same number were adjacent in the original name (before step 1), or adjacent except for any intervening h and w, then retain the first letter and omit the rest of all the adjacent letters with the same number.
+      4.  Return the first four bytes padded with 0.
+
+    - Return type
+      STRING
+
+    - Parameters
+      Parameter: str
+      Description: A string value
+      Data type: STRING
+    
+    - Examples
+      soundex("Ashcraft") => "A261"
+      soundex("Burroughs") => "B620"
+      soundex("Burrows") => "B620"
+    `
+  },
+  {
+    label: 'space()',
+    detail: 'space( n )',
+    documentation: `
+    - Description
+      Returns a string that contains the specified number of space characters
+
+    - Return type
+      STRING
+
+    - Parameters
+      Parameter: n
+      Description: An integer value
+      Data type: INT
+    
+    - Examples
+      space(0) = ""
+      space(1) = " "
+      space(5) = "     "
+    `
+  },
+  {
+    label: 'substr()',
+    detail: 'substr(str, start [, length])',
+    documentation: `
+    - Description
+      Returns the substring indicated by the start point and length. If the parameter length is omitted, then the returned substring will extend to the end of the given input string.
+
+    - Return type
+      STRING
+
+    - Parameters
+      Parameter: str
+      Description: The string to extract substring from
+      Data type: STRING
+
+      Parameter: start
+      Description: The position that indicates the start of the substring
+      Data type: INT
+
+      Parameter: length
+      Description: Optional. The length of the substring. If omitted, the substring will extend from start to the end of str.
+      Data type: INT
+    
+    - Example
+      substr("ABCDE", 2) -> "CDE"
+      substr("ABCDE", 2, 2) -> "CD"
+      substr("ABCDE", -2, 1) -> "D"
+    `
+  },
+  {
+    label: 'translate()',
+    detail: 'translate( str_origin, characters, translations )',
+    documentation: `
+    - Description
+      Returns the string from the first argument after the characters specified in the second argument are translated into the characters specified at the same index in the third argument.
+      The function will return an error if characters and translations have different lengths.
+
+    - Return type
+      STRING
+
+    - Parameters
+      Parameter: str_origin
+      Description: A string value
+      Data type: STRING
+
+      Parameter: characters
+      Description: A string of characters
+      Data type: STRING
+
+      Parameter: translations
+      Description: A string of characters
+      Data type: STRING
+    
+    - Examples
+      translate("Hello world", "", "") => "Hello world"
+      translate("Hello world", "o", "U") => "HellU wUrld"
+      translate("Hello world", "lo", "aU") => "HeaaU wUrad"
+      translate(", "lo", "aU") => "
+    `
+  },
+  {
+    label: 'trim()',
+    detail: 'trim( [ [ LEADING | TRAILING | BOTH ] [removal_char FROM] ] str )',
+    documentation: `
+    - Description
+      Trims characters from the leading and/or trailing ends of a string.
+      By using one of the keywords LEADING, TRAILING, or BOTH, the user can specify that characters are to be removed from the left end, right end, or both ends of the string respectively. BOTH is the default and will be used if no keywords are specified.
+
+    - Return type
+      STRING
+
+    - Parameters
+      Parameter: removal_char
+      Description: Optional. The character to remove. If removal_char is not specified, the function will remove whitespaces, including spaces, tabs, and newlines. If removal_char is specified, the user must also write the keyword FROM between removal_char and str.
+      Data type: STRING
+
+      Parameter: str
+      Description: A string value.
+      Data type: STRING
+    
+    - Example
+      trim("  Abc   ") => "Abc"
+      trim( LEADING " a A   ") => "a A   "
+      trim( TRAILING "a" FROM "aa ABC aaa") => "aa ABC "
+    `
+  },
+  {
+    label: 'upper()',
+    detail: 'upper(str)',
+    documentation: `
+    - Description
+      Returns the input string with all letters in uppercase.
+
+    - Return type
+      STRING
+
+    - Parameters
+      Parameter: str
+      Description: The string to convert to uppercase
+      Data type: STRING
+
+      Parameter: str
+      Description: A string value.
+      Data type: STRING
+    
+    - Example
+      upper("gsql") -> "GSQL"
+    `
+  },
+  {
+    label: 'parse_json_array()',
+    detail: 'parse_json_array( str )',
+    documentation: `
+    - Description
+        Converts a string into a JSON array. The string must be properly formatted, or the function will generate a run-time error. To be properly formatted, besides having the proper nesting and matching of curly braces { } and brackets [ ], each value field must be one of the following:
+          a string
+          a number
+          a boolean
+          a JSONOBJECT - Each key of a key-value pair must be a string in double quotes.
+          a JSON array
+
+    - Return type
+      JSONARRAY
+
+    - Parameters
+      Parameter: str
+      Description: The string to be converted into a JSON array.
+      Data type: STRING
+    
+    - Example
+      parse_json_array("[123]") -> [123]
+    `
+  },
+  {
+    label: 'parse_json_object()',
+    detail: 'parse_json_object( str )',
+    documentation: `
+    - Description
+      Converts a string into a JSON object. The string must be properly formatted, or the function will generate a run-time error. To be properly formatted, besides having the proper nesting and matching of curly braces { } and brackets [ ], each value field must be one of the following:
+        a string
+        a number
+        a boolean
+        a JSONOBJECT - Each key of a key-value pair must be a string in double quotes, and the quotes need to be escaped with a backlash-escape \. However, if you are supplying the string in GraphStudio as a parameter, you do not need the backlash-escape since string values are not enclosed in double quotes.
+        a JSON array
+
+    - Return type
+      JSONOBJECT
+
+    - Parameters
+      Parameter: str
+      Description: The string to be converted into a JSON object.
+      Data type: STRING
+    
+    - Example
+      parse_json_object("{\"abc\":123}")  -> {"abc": 123}
+    `
+  },
+  {
+    label: 'str_to_int()',
+    detail: 'str_to_int(str)',
+    documentation: `
+    - Description
+      Converts a string to an integer.
+
+    - Return type
+      INT
+
+    - Parameters
+      Parameter: str
+      Description: The string to be converted to an integer
+      Data type: STRING
+    `
+  },
+  {
+    label: 'to_datetime()',
+    detail: 'to_datetime( str )',
+    documentation: `
+    - Description
+      Converts a string value into a DATETIME value.
+
+    - Return type
+      DATETIME
+
+    - Parameters
+      Parameter: str
+      Description: A string value
+      Data type: STRING
+    
+    - Example
+      to_datetime("2020-01-02 01:02:03") -> 2020-01-02 01:02:03
+    `
+  },
+  {
+    label: 'to_string()',
+    detail: 'to_string(num)',
+    documentation: `
+    - Description
+      Converts a number to a string.
+
+    - Return type
+      STRING
+
+    - Parameters
+      Parameter: num
+      Description: The number to turn into a string
+      Data type: Number
+    `
+  },
 ];
