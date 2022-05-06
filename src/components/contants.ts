@@ -1691,6 +1691,100 @@ export const FUNCTIONS: vscode.CompletionItem[] = [
       Data type: Number
     `
   },
+  {
+    label: 'getvid()',
+    detail: 'getvid( v )',
+    documentation: `
+    - Description
+      Returns the internal ID number of a vertex.
+      The internal ID is not the primary ID which the user assigned when creating the vertex. However, there is a 1-to-1 mapping between the external ID (primary_id) and internal ID.
+      The engine can access the internal ID faster than accessing the external ID, so if a query needs unique values for a large number of vertices, but doesn’t care about particular values, getvid() can be a useful option. For example, in many community detection algorithms, we start by assigning every vertex a unique community ID. Then, as the algorithm progresses, some vertices will join the community of one of their neighbors, giving up their current community ID and copying the IDs of their neighbors.
+
+    - Return type
+      INT
+
+    - Parameters
+      Parameter: v
+      Description: A vertex alias.
+      Data type: Vertex alias
+    `
+  },
+  {
+    label: 'selectVertex()',
+    detail: 'selectVertex( filepath, vertexIdColumn, vertexTypeColumn, seperator, header)',
+    documentation: `
+    - Description
+      Reads a data file that lists particular vertices of the graph and returns the corresponding vertex set.This function can only be used in a vertex set variable declaration statement as a seed set and the vertices in the data file must already be in the graph.The data file must be organized as a table with one or more columns.One column must be for vertex ID.Optionally, another column is for vertex type.
+
+    - Return type
+      SET<VERTEX>
+
+    - Parameters
+      Parameter: filePath
+      Description: The absolute file path of the input file to be read. A relative path is not supported.
+      Data type:  STRING
+
+      Parameter: vertexIdColumn
+      Description:  The vertex ID column position.
+                    The index for column positions starts at 0. Therefore, to designate the first column as the ID column, set this parameter to $0.
+      Data type:  $ num
+                  If header is set to true, $ "column_name" is also acceptable.
+      
+      Parameter: vertexTypeColumn
+      Description: The vertex type column position or a specific vertex type.
+      Data type:  $ num
+                  If header is set to true,$ "column_name" is also acceptable.
+                  Alternatively, a vertex type without double quotes.
+
+      Parameter: separator
+      Description: The column separator character.
+      Data type:  STRING
+
+      Parameter: header
+      Description: Whether this file has a header.
+      Data type:  BOOL
+    `
+  },
+  {
+    label: 'to_vertex()',
+    detail: 'to_vertex( id, vertex_type )',
+    documentation: `
+    - Description
+      Returns a vertex from a string ID and vertex type. If a vertex with the provided ID and type does not exist, the function will throw a run-time error.
+
+    - Return type
+      VERTEX
+
+    - Parameters
+      Parameter: id
+      Description: The ID of a vertex
+      Data type:  STRING
+
+      Parameter: vertex_type
+      Description: The type of the vertex
+      Data type: STRING
+    `
+  },
+  {
+    label: 'to_vertex_set()',
+    detail: 'to_vertex_set( id_set, vertex_type)',
+    documentation: `
+    - Description
+      Returns a vertex set from a set or bag of string IDs and a vertex type. If there are invalid IDs in the set, those IDs will be skipped and the response will contain a warning message. If the vertex type does not exist, the function will throw a run-time error.
+
+    - Return type
+      SET<VERTEX>
+
+    - Parameters
+      Parameter: id_set
+      Description: A set of vertex IDs
+      Data type:  SET<STRING>, BAG<STRING>
+
+      Parameter: vertex_type
+      Description: The type of the vertices
+      Data type: STRING
+    `
+  },
 ];
 
 export const METHODS: vscode.CompletionItem[] = [
@@ -1775,4 +1869,715 @@ export const METHODS: vscode.CompletionItem[] = [
       Selected edges will have their specified attribute set to TRUE.
     `
   },
+  {
+    label: 'containsKey()',
+    detail: 'jsonobject.containsKey( keyStr )',
+    documentation: `
+    - Description
+      Returns a boolean value indicating whether the JSON object contains a specified key.
+
+    - Return type
+      BOOL
+
+    - Parameters
+        Parameter: keyStr
+        Description: A string.
+        Data type: STRING
+    
+    - Example
+      If we have the following JSON object represented by the variable han:
+        {
+            "name": "Han Solo",
+            "age": "39",
+            "occupation": "mercenary"
+        }
+      Then:
+        han.containsKey("name") -> true
+        han.containsKey("isJedi") -> false
+    `
+  },
+  {
+    label: 'getBool()',
+    detail: 'jsonobject.getBool( keyStr )',
+    documentation: `
+    - Description
+      Returns the boolean value associated with a specified key. If the key provided is associated with a non-boolean value, the function will raise a runtime error.
+
+    - Return type
+      BOOL
+
+    - Parameters
+        Parameter: keyStr
+        Description: The key whose value to return
+        Data type: STRING
+    
+    - Example
+      If we have the following JSON object represented by the variable han:
+        {
+            "name": "Han Solo",
+            "age": 39,
+            "occupation": "mercenary",
+            "isJedi": false
+        }
+      Then:
+        han.getBool("isJedi") -> false
+    `
+  },
+  {
+    label: 'getDouble()',
+    detail: 'jsonobject.getDouble( keyStr )',
+    documentation: `
+    - Description
+      Returns the double value associated with a specified key. If the key provided is associated with a non-double value, the function will raise a runtime error.
+
+    - Return type
+      BOOL
+
+    - Parameters
+        Parameter: keyStr
+        Description: The key whose value to return
+        Data type: STRING
+    `
+  },
+  {
+    label: 'getInt()',
+    detail: 'jsonobject.getInt( keyStr )',
+    documentation: `
+    - Description
+      Returns the integer value associated with a specified key. If the key provided is associated with a non-int value, the function will raise a runtime error.
+
+    - Return type
+      INT
+
+    - Parameters
+        Parameter: keyStr
+        Description: The key whose value to return
+        Data type: STRING
+    `
+  },
+  {
+    label: 'getJsonArray()',
+    detail: 'jsonobject.getJsonArray( keyStr )',
+    documentation: `
+    - Description
+      Returns the JSON array value associated with a specified key. If the key provided is associated with a value whose type is not JSON array, the function will raise a runtime error.
+
+    - Return type
+      JSONARRAY
+
+    - Parameters
+        Parameter: keyStr
+        Description: The key whose value to return
+        Data type: STRING
+    `
+  },
+  {
+    label: 'getJsonObject()',
+    detail: 'jsonobject.getJsonObject( keyStr )',
+    documentation: `
+    - Description
+      Returns the value associated with a specified key. If the key provided is associated with value whose type is not JSON object, the function will raise a runtime error.
+
+    - Return type
+      JSONOBJECT
+
+    - Parameters
+        Parameter: keyStr
+        Description: The key whose value to return
+        Data type: STRING
+    `
+  },
+  {
+    label: 'getString()',
+    detail: 'jsonobject.getString( keyStr )',
+    documentation: `
+    - Description
+      Returns the string value associated with a specified key. If the key provided is associated with a non-string value, the function will raise a runtime error.
+
+    - Return type
+      JSONOBJECT
+
+    - Parameters
+        Parameter: keyStr
+        Description: The key whose value to return
+        Data type: STRING
+    `
+  },
+  {
+    label: 'getBool()',
+    detail: 'jsonarray.getBool( idx )',
+    documentation: `
+    - Description
+      Returns the boolean value at a specified index.
+
+    - Return type
+      BOOL
+
+    - Parameters
+        Parameter: idx
+        Description: The index of the value to return
+        Data type: INT
+    `
+  },
+  {
+    label: 'getDouble()',
+    detail: 'jsonarray.getDouble( idx )',
+    documentation: `
+    - Description
+      Returns the double at a specified index.
+
+    - Return type
+      DOUBLE
+
+    - Parameters
+        Parameter: idx
+        Description: The index of the value to return
+        Data type: INT
+    `
+  },
+  {
+    label: 'getInt()',
+    detail: 'jsonarray.getInt( idx )',
+    documentation: `
+    - Description
+      Returns the integer value at a specified index.
+
+    - Return type
+      INT
+
+    - Parameters
+        Parameter: idx
+        Description: The index of the value to return
+        Data type: INT
+    `
+  },
+  {
+    label: 'getJsonArray()',
+    detail: 'jsonarray.getJSONArray( idx )',
+    documentation: `
+    - Description
+      Returns the JSONArray value at a specified index.
+
+    - Return type
+      BOOL
+
+    - Parameters
+        Parameter: idx
+        Description: The index of the value to return
+        Data type: INT
+    `
+  },
+  {
+    label: 'getJsonObject()',
+    detail: 'jsonarray.getJsonObject( idx )',
+    documentation: `
+    - Description
+      Returns the JSONOBJECT value at a specified index.
+
+    - Return type
+      JSONOBJECT
+
+    - Parameters
+        Parameter: idx
+        Description: The index of the value to return
+        Data type: INT
+    `
+  },
+  {
+    label: 'getString()',
+    detail: 'jsonarray.getString( idx )',
+    documentation: `
+    - Description
+      Returns the boolean value at a specified index.
+
+    - Return type
+      STRING
+
+    - Parameters
+        Parameter: idx
+        Description: The index of the value to return
+        Data type: INT
+    `
+  },
+  {
+    label: 'size()',
+    detail: 'jsonarray.size()',
+    documentation: `
+    - Description
+      Returns the size of the array.
+
+    - Return type
+      INT
+
+    - Parameters
+        None
+    `
+  },
+  {
+    label: 'edgeAttribute()',
+    detail: 'v.edgeAttribute( edgeType, attrName )',
+    documentation: `
+    - Description
+      From a vertex, traverse edges of a specified type and return the bag of values for a specified edge attribute.
+
+    - Return type
+      BagAccum<attrType>
+
+    - Parameters
+      Parameter: edgeType
+      Description: The edge type to traverse
+      Data type: STRING
+
+      Parameter: attrName
+      Description: The attribute whose value to retrieve
+      Data type: STRING
+    `
+  },
+  {
+    label: 'filter()',
+    detail: `
+    v.neighbors().filter( condition )
+    v.neighborAttribute().filter( condition )
+    v.edgeAttribute().filter( condition )
+    `,
+    documentation: `
+    - Description
+      This function is appended to neighbors(), neighborAttribute(), or edgeAttribute() to filter the output set according to a filter condition. Only elements that satisfy the condition will be returned.
+
+    - Return type
+      BagAccum
+
+    - Parameters
+      Parameter: condition
+      Description: An expression that evaluates to a boolean value
+      Data type: BOOL
+
+    - Example
+      Example query
+        CREATE QUERY filterEx (SET<STRING> pIds, INT yr) FOR GRAPH workNet api("v2") {
+        
+          SetAccum<vertex<company>> @recentEmplr, @allEmplr;
+          BagAccum<string> @diffCountry, @allCountry;
+        
+          Start = {person.*};
+        
+          L0 = SELECT v
+              FROM  Start:v
+              WHERE v.id IN pIds
+              ACCUM
+                # filter using edge attribute
+                v.@recentEmplr += v.neighbors("worksFor").filter(worksFor.startYear >= yr),
+                v.@allEmplr += v.neighbors("worksFor").filter(true),
+        
+                # vertex alias attribute and neighbor type attribute
+                v.@diffCountry += v.neighborAttribute("worksFor", "company", "id")
+                                  .filter(v.locationId != company.country),
+                v.@allCountry += v.neighborAttribute("worksFor", "company", "id")
+              ;
+        
+          PRINT yr, L0[L0.@recentEmplr, L0.@allEmplr, L0.@diffCountry, L0.@allCountry]; // api v2
+        }
+      Results
+        GSQL > RUN QUERY filterEx(["person1","person2"],2016)
+        {
+          "error": false,
+          "message": "",
+          "version": {
+            "edition": "developer",
+            "schema": 0,
+            "api": "v2"
+          },
+          "results": [{
+            "L0": [
+              {
+                "v_id": "person1",
+                "attributes": {
+                  "L0.@diffCountry": ["company2"],
+                  "L0.@recentEmplr": ["company1"],
+                  "L0.@allCountry": [ "company1", "company2" ],
+                  "L0.@allEmplr": [ "company2", "company1" ]
+                },
+                "v_type": "person"
+              },
+              {
+                "v_id": "person2",
+                "attributes": {
+                  "L0.@diffCountry": ["company1"],
+                  "L0.@recentEmplr": [],
+                  "L0.@allCountry": [ "company1", "company2" ],
+                  "L0.@allEmplr": [ "company2", "company1" ]
+                },
+                "v_type": "person"
+              }
+            ],
+            "yr": 2016
+          }]
+        }
+    `
+  },
+  {
+    label: 'getAttr()',
+    detail: 'v.getAttr(attrName, attrType)',
+    documentation: `
+    - Description
+      Returns the value of a vertex attribute on the vertex.
+
+    - Return type
+      attrType
+
+    - Parameters
+      Parameter: attrName
+      Description: A vertex attribute
+      Data type: STRING
+
+      Parameter: attrType
+      Description: The type of the attribute value
+      Data type: STRING
+    `
+  },
+  {
+    label: 'neighborAttribute()',
+    detail: 'v.neighborAttribute( edgeType, targetVertexType, attrName )',
+    documentation: `
+    - Description
+      From a vertex, traverses edges of a specified type to its neighbors of a specified type, and returns the set of values for a specified attribute.
+
+    - Return type
+      BagAccum<attrType>
+
+    - Parameters
+      Parameter: edgeType
+      Description: The edge type to traverse
+      Data type: STRING
+
+      Parameter: targetVertexType
+      Description: The target vertex type to visit
+      Data type: STRING
+
+      Parameter: attrName
+      Description: An attribute of the target vertex type
+      Data type: STRING
+    `
+  },
+  {
+    label: 'neighbors()',
+    detail: 'v.neighbors([edgeType])',
+    documentation: `
+    - Description
+      Returns the out-neighbors or undirected neighbors of the vertex. If edge types are provided, it will only return the neighbors connected by the specified edge types.
+
+    - Return type
+      BagAccum<VERTEX>
+
+    - Parameters
+      Parameter: edgeType
+      Description: Optional. An edge type or a collections of edge types.
+      Data type: STRING, SET<STRING>, SetAccum<STRING>, BagAccum<STRING>, ListAccum<STRING>
+    `
+  },
+  {
+    label: 'outdegree()',
+    detail: 'v.outdegree([edgeType])',
+    documentation: `
+    - Description
+      Returns the number of outgoing or undirected edges connected to the vertex. If edge types are provided, it will only return the number of edges of the specified types.
+
+    - Return type
+      INT
+
+    - Parameters
+      Parameter: edgeType
+      Description: Optional. An edge type or a collection of edge types.
+      Data type: STRING, SET<STRING>, SetAccum<STRING>, BagAccum<STRING>, ListAccum<STRING>
+    `
+  },
+  {
+    label: 'setAttr()',
+    detail: 'v.setAttr( attrName, newValue )',
+    documentation: `
+    - Description
+      Sets the specified attribute of a vertex to a new value.
+
+    - Return type
+      No return value.
+
+    - Parameters
+      Parameter: attrName
+      Description: The name of an attribute
+      Data type: STRING
+
+      Parameter: newValue
+      Description: The new value for the attribute
+      Data type: The type of the attribute.
+    `
+  },
+  {
+    label: 'addTags()',
+    detail: 'v.addTags(STRING tag1,... STRING tagN)',
+    documentation: `
+    - Description
+      Adds the tags provided in the argument list to the vertex.
+
+    - Return type
+      No return value.
+
+    - Parameters
+      Parameter: tagN
+      Description: A tag to add to the vertex
+      Data type: STRING
+
+    - Example:
+      CREATE QUERY addTagsToPerson() {
+        Seed = { any };
+        # person1 ~ person5 will be tagged as public.
+        vSet = SELECT s
+              FROM Seed:s
+              WHERE s.id IN ("person1","person2","person3","person4","person5")
+              ACCUM s.addTags("public");
+      
+        # person6 and person7 will be tagged as public and vip.
+        vSet = SELECT s
+              FROM Seed:s
+              WHERE s.id IN ("person6","person7")
+              ACCUM s.addTags("vip", "public");
+      
+        # person8 will be tagged as vip
+        vSet = SELECT s
+              FROM Seed:s
+              WHERE s.id == "person8"
+              ACCUM s.addTags("vip");
+      }
+    `
+  },
+  {
+    label: 'differenceTags()',
+    detail: 'v.differenceTags( v2 )',
+    documentation: `
+    - Description
+      Returns the difference in tags between the vertex and another vertex as a set.
+
+    - Return type
+      SET<STRING>
+
+    - Parameters
+      Parameter: v2
+      Description: A vertex
+      Data type: VERTEX
+
+    - Example:
+      // return the difference set of tags between two vertices
+      CREATE QUERY exampleDifferencetags() {
+        SetAccum<string> @vAcc;
+        vSet = { any };
+        vSet = SELECT s
+              FROM vSet:s -(_)- :t
+              WHERE t.type == "person"
+              ACCUM s.@vAcc += s.differenceTags(t);
+        PRINT vSet[vSet.@vAcc];
+      }
+    `
+  },
+  {
+    label: 'getTags()',
+    detail: 'v.getTags()',
+    documentation: `
+    - Description
+      Returns the vertex's tags as a set. If the vertex has no tags or is untaggable, it returns an empty set.
+
+    - Return type
+      SET<STRING>
+
+    - Parameters
+      None.
+
+    - Example:
+      //print the tags of each vertices, in 2 different ways.
+      CREATE QUERY exampleGettags() {
+        SetAccum<string> @vAcc;
+        vSet = { any };
+        vSet = SELECT s
+              FROM vSet:s
+              ACCUM s.@vAcc += s.getTags();
+        PRINT vSet[vSet.@vAcc];
+        PRINT vSet[vSet.gettags()];
+      }
+    `
+  },
+  {
+    label: 'hasTags()',
+    detail: 'hasTags( tag1, tag2, ..., tagN )',
+    documentation: `
+    - Description
+      Returns true if the vertex has every tag provided in the argument list and returns false if it does not.
+
+    - Return type
+      BOOL
+
+    - Parameters
+      Parameter: tagN
+      Description: A string.
+      Data type: STRING
+
+    - Example:
+      USE GRAPH socialNet
+      CREATE QUERY findVertexWithTag(STRING tag) {
+        seed = { ANY };
+        res =
+          SELECT v
+          FROM seed:v
+          WHERE v.hasTags(tag)
+          ORDER BY v.id;
+        PRINT res WITH TAGS;
+      }
+      INSTALL QUERY findVertexWithTag
+      RUN QUERY findVertexWithTag("vip")
+      The output of the query would be:
+        {
+          "error": false,
+          "message": "",
+          "version": {
+            "schema": 2,
+            "edition": "enterprise",
+            "api": "v2"
+          },
+          "results": [{"res": [
+            {
+              "v_id": "person6",
+              "attributes": {
+                "gender": "Male",
+                "id": "person6",
+                "res.gettags()": [
+                  "vip",
+                  "public"
+                ]
+              },
+              "v_type": "person"
+            },
+            {
+              "v_id": "person7",
+              "attributes": {
+                "gender": "Male",
+                "id": "person7",
+                "res.gettags()": [
+                  "vip",
+                  "public"
+                ]
+              },
+              "v_type": "person"
+            },
+            {
+              "v_id": "person8",
+              "attributes": {
+                "gender": "Male",
+                "id": "person8",
+                "res.gettags()": ["vip"]
+              },
+              "v_type": "person"
+            }
+          ]}]
+        }
+    `
+  },
+  {
+    label: 'isTaggable()',
+    detail: 'v.isTaggable()',
+    documentation: `
+    - Description
+      Returns true if the vertex is taggable.
+
+    - Return type
+      BOOL
+
+    - Parameters
+      None
+
+    - Example:
+      //count the number of taggable vertices in the graph.
+      CREATE QUERY countIstaggable() for graph poc_graph_tag {
+        SumAccum<int> @@count;
+        vSet = { any };
+        vSet = SELECT s
+              FROM vSet:s
+              WHERE s.isTaggable()
+              ACCUM @@count += 1;
+        PRINT @@count;
+      }
+    `
+  },
+  {
+    label: 'intersectTags()',
+    detail: 'v.intersectTags( v2 )',
+    documentation: `
+    - Description
+      Returns the common tags between the vertex and another vertex as a set.
+
+    - Return type
+      SET<STRING>
+
+    - Parameters
+      None
+
+    - Example:
+      //return the intersect set of tags between two vertices.
+      CREATE QUERY exampleIntersecttags() {
+        SetAccum<string> @vAcc;
+        vSet = { any };
+        vSet = SELECT s
+              FROM vSet:s -(_)- :t
+              WHERE t.type == "person"
+              ACCUM s.@vAcc += s.intersectTags(t);
+        PRINT vSet[vSet.@vAcc];
+      }
+    `
+  },
+  {
+    label: 'removeAllTags()',
+    detail: 'v.removeAllTags()',
+    documentation: `
+    - Description
+      Removes all tags from the vertex.
+
+    - Return type
+      No return value.
+
+    - Parameters
+      None
+
+    - Example:
+      //remove all tags from all person vertices.
+      CREATE QUERY removealltagsFromPerson() {
+        vSet = { person.* };
+        # remove all tags from all person vertices
+        vSet = SELECT s
+              FROM vSet:s
+              ACCUM s.removeAllTags();
+      }
+    `
+  },
+  {
+    label: 'removeTags()',
+    detail: 'v.removeTags( tag1, tag2, ..., tagN )',
+    documentation: `
+    - Description
+      Removes the tags provided in the argument list from the vertex.
+
+    - Return type
+      No return value.
+
+    - Parameters
+      Parameter: tagN
+      Description: A string value
+      Data type: STRING
+
+    - Example:
+      //remove tag “vip” and “public” from all person vertices.
+      CREATE QUERY removetagsFromPerson() {
+        vSet = { person.* };
+        # remove tag vip and public from all person vertices
+        vSet = SELECT s
+              FROM vSet:s
+              ACCUM s.removeTags("vip", "public");
+      }
+    `
+  }
 ];
