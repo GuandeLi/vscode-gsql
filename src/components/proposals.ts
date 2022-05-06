@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
-import { FUNCTIONS, KEYWORD, SELECTOR } from './contants';
+import { FUNCTIONS, KEYWORD, SELECTOR, METHODS } from './contants';
 
-export default vscode.languages.registerCompletionItemProvider(SELECTOR, {
+export const kwAndFunc = vscode.languages.registerCompletionItemProvider(SELECTOR, {
   provideCompletionItems() {
     const keywords = KEYWORD.map(kw => ({
       label: kw,
@@ -16,3 +16,15 @@ export default vscode.languages.registerCompletionItemProvider(SELECTOR, {
     return [...keywords, ...functions];
   }
 });
+
+export const methods = vscode.languages.registerCompletionItemProvider(SELECTOR, {
+  provideCompletionItems() {
+    const methods: vscode.CompletionItem[] = METHODS.map(method => ({
+      label: method.label,
+      detail: method.detail,
+      documentation: method.documentation,
+      kind: vscode.CompletionItemKind.Method
+    }));
+    return [...methods];
+  }
+}, '.');

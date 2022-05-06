@@ -1692,3 +1692,87 @@ export const FUNCTIONS: vscode.CompletionItem[] = [
     `
   },
 ];
+
+export const METHODS: vscode.CompletionItem[] = [
+  {
+    label: 'getAttr()',
+    detail: 'e.getAttr( attrName, attrType )',
+    documentation: `
+    - Description
+      Returns the value of an attribute of the edge.
+
+    - Return type
+      The data type of the attribute itself.
+
+    - Parameters
+        Parameter: attrName
+        Description: The name of the attribute.
+        Data type: STRING
+
+        Parameter: attrType
+        Description: The type of the attribute
+        Data type: STRING
+    
+    - Example
+      If we have the following edge:
+      {
+            "e_type": "User_Video",
+            "directed": false,
+            "from_id": "0",
+            "from_type": "VidUser",
+            "to_id": "2",
+            "to_type": "Video",
+            "attributes": {
+              "rating": 5.2,
+              "date_time": 0
+      }
+      Assume the alias of the edge is e:
+      e.getAttr("rating", "DOUBLE") -> 5.2
+    `
+  },
+  {
+    label: 'isDirected()',
+    detail: 'e.isDirected()',
+    documentation: `
+    - Description
+      Returns a boolean value indicating whether the edge is directed or undirected.
+
+    - Return type
+      BOOL
+
+    - Parameters
+      None.
+    `
+  },
+  {
+    label: 'setAttr()',
+    detail: 'e.setAttr( attrName, attrNewValue )',
+    documentation: `
+    - Description
+      Sets an attribute of an edge to a new value.
+
+    - Return type
+      No return value.
+
+    - Parameters
+        Parameter: attrName
+        Description: The name of the attribute. This argument must be a query parameter.
+        Data type: STRING
+
+        Parameter: attrNewValue
+        Description: The new value of the attribute
+        Data type: The type of the attribute.
+    
+    - Example
+      CREATE QUERY setAttrExample(STRING attr){ 
+        Current = {v_type.*}
+        S = SELECT s
+                FROM Current:s -(e_type:e) -> v_type:t
+                WHERE t.attribute1 == "example_value"
+                ACCUM e.setAttr(attr, TRUE); 
+      }
+      The first argument of e.setAttr must be a query parameter. Therefore, in this example we are passing a string value in the query parameter attr. The string value should be the name of the attribute you want to call the function with.
+      Selected edges will have their specified attribute set to TRUE.
+    `
+  },
+];
