@@ -1,4 +1,0 @@
-CREATE OR REPLACE QUERY aaa() FOR GRAPH bbb {
-  
-  PRINT ""
-}
