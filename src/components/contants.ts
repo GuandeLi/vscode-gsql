@@ -1048,4 +1048,178 @@ export const FUNCTIONS: vscode.CompletionItem[] = [
       }
     `
   },
+  {
+    label: 'ascii()',
+    detail: 'ascii( str )',
+    documentation: `
+    - Description
+      Returns the ASCII (numeric) position of the first character in a string. If the argument is an empty string, returns 0.
+
+    - Return type
+      INT
+
+    - Parameters
+      Parameter: str
+      Description: A string value
+      Data type: STRING
+
+    - Example
+      ascii("") => 0
+      ascii("A") => 65
+    `
+  },
+  {
+    label: 'chr()',
+    detail: 'chr( n )',
+    documentation: `
+    - Description
+      Converts an integer to a character according to its ASCII position. If the input value n is greater than 255, returns the character at the position of the modulo of n / 256.
+
+    - Return type
+      STRING
+
+    - Parameters
+      Parameter: n
+      Description: An integer value
+      Data type: INT
+
+    - Examples
+      chr(65) => 'A'
+      chr(322) => 'B'
+    `
+  },
+  {
+    label: 'difference()',
+    detail: 'difference(str1, str2)',
+    documentation: `
+    - Description
+      Compares the Soundex codes of two strings and returns an integer. The return value ranges from 0 to 4, and it indicates the similarity between the input strings' phonetic representation values.
+      0 indicates weak similarity, and 4 indicates strong similarity with identical phonetic representation values.
+
+    - Return type
+      INT
+
+    - Parameters
+      Parameter: str1
+      Description: A string value
+      Data type: STRING
+
+      Parameter: str2
+      Description: A string value
+      Data type: STRING
+
+    - Examples
+      difference("Johnson", "Jonson") => 4
+      difference("Adams", "Addamms") => 4
+      difference("Mary", "Bob") => 2
+    `
+  },
+  {
+    label: 'find_in_set()',
+    detail: 'find_in_set(str, str_list)',
+    documentation: `
+    - Description
+      Returns the position of a string within a list of strings separated by commas.
+      If string is not found in string_list, this function returns -1.
+      NOTE
+        find_in_set does not ignore whitespace after the comma. For example, find_in_set("a", "b a, a") = 0, indicating that a is not an element in the list. This happens because the second and third elements of the list are space+a, rather than a.
+
+    - Return type
+      INT
+
+    - Parameters
+      Parameter: str
+      Description: A string value
+      Data type: STRING
+
+      Parameter: str_list
+      Description: A string representation of a list of strings.
+      Data type: STRING
+
+    - Example
+      find_in_set("a","") => 0
+      find_in_set("a","b,c,d") => 0
+      find_in_set("a","b,a,d") => 2
+    `
+  },
+  {
+    label: 'gsql_uuid_v4()',
+    detail: 'gsql_uuid_v4()',
+    documentation: `
+    - Description
+      Generates and returns a version-4 universally unique identifier (UUID).
+
+    - Return type
+      STRING
+
+    - Parameters
+      None.
+    `
+  },
+  {
+    label: 'insert()',
+    detail: 'insert(str1, position[, number], str2)',
+    documentation: `
+    - Description
+      Inserts a string within a string at the specified position and for a certain number of characters, and replaces a specified number of characters starting from the insertion position. The starting index is 0.
+
+    - Return type
+      STRING
+
+    - Parameters
+      Parameter: str1
+      Description: The string to insert another string into
+      Data type: STRING
+
+      Parameter: position
+      Description: The index of the starting position to insert the string
+      Data type: INT
+
+      Parameter: number
+      Description: Optional. The number of characters from the original string that will be replaced. If the argument is left off, it defaults to 0.
+      Data type: Number
+
+      Parameter: str2
+      Description: The string to be inserted
+      Data type: STRING
+
+    - Examples
+      insert("tigergraph.com", 0, 10, "Example") => "Example.com”
+      insert("tigergraph.com", 0, 2, "Example") => "Examplegergraph.com”
+      insert("tigergraph.com", 2, 20, "Example") => ”tiExample”
+      insert("Complete blank.", 9, "every ") => "Complete every blank."
+    `
+  },
+  {
+    label: 'instr()',
+    detail: 'instr (str, substr [, position, occurrence])',
+    documentation: `
+    - Description
+      Searches a string str for a substring substr and returns the location of the substring in the string. If a substring that is equal to substr is found, then the function returns an integer indicating the position of the first character of this substring. If no such substring is found, then the function returns -1.
+
+    - Return type
+      INT
+
+    - Parameters
+      Parameter: str
+      Description: The string to search
+      Data type: STRING
+
+      Parameter: substr
+      Description: The string to search for in str
+      Data type: STRING
+
+      Parameter: position
+      Description: Optional. The position is a nonzero integer indicating the character of str from where the search begins. If omitted, it defaults to 0. The first position in the string is 0. If position is negative, then the function counts backward from the end of str and then searches backward from the resulting position.
+      Data type: INT
+
+      Parameter: occurrence
+      Description: Optional, The occurrence is an integer indicating which occurrence of substr in str the function should search for.
+      Data type: STRING
+
+    - Example
+      instr("This is the thing", "Th") -> 0;
+      instr("This is the thing", "is", 3) -> 5;
+    `
+  },
 ];

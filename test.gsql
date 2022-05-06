@@ -1,0 +1,3 @@
+CREATE QUERY aaa() FOR GRAPH bbb SYNTAX v2 {
+  PRINT "aaa"
+}
