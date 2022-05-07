@@ -16,7 +16,7 @@
 	```
 
 - sf:
-	```
+	```gsql
 		SELECT 
 		FROM 
 	```

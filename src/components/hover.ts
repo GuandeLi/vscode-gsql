@@ -1,25 +1,27 @@
 import * as vscode from 'vscode';
-import * as Parser from 'web-tree-sitter';
 import { parserDocument } from './parser';
 
 export default vscode.languages.registerHoverProvider('gsql', {
   provideHover(document, position) {
     const contents: string[] = [];
-
     const tree = parserDocument(document.getText());
-    (function f(node: Parser.SyntaxNode) {
-      if (
-        node.startPosition.column <= position.character &&
-        node.endPosition.column >= position.character &&
-        node.startPosition.row <= position.line &&
-        node.endPosition.row >= position.line
-      ) {
-        contents.push(node.type);
-      }
-  
-      node.children.forEach(child => f(child));
-    })(tree.rootNode);
-    return {
+    const node = tree.rootNode.descendantForPosition({
+      row: position.line,
+      column: position.character
+    });
+    contents.push(node.type);
+    let parent = node.parent;
+    while(parent) {
+      contents.push(parent.type);
+      parent = parent.parent;
+    }
+    contents.reverse();
+    contents.push(
+      `${JSON.stringify(node.startPosition)}`,
+      `${JSON.stringify(node.endPosition)}`,
+      node.text,
+    );
+		return {
       contents
     };
   }
