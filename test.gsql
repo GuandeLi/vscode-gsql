@@ -1,3 +1,56 @@
-CREATE QUERY aaa() FOR GRAPH bbb SYNTAX v2 {
-  PRINT "aaa"
+CREATE DISTRIBUTED QUERY TimeSeriesTable(file output_file) FOR GRAPH NikeCustomerJourney {
+    MaxAccum<String> @content_id, @content_type, @session_id, @exp, @visitor_id, @preferred_country, @action_group;
+    SumAccum<STRING> @product_list;
+    MinAccum<DATETIME> @session_start_ts;
+    MaxAccum<INT> @session_seq_num, @strLen;
+          visitors = {Visitor.*};
+          visitors = select s from visitors:s-(Visitor_HAS_Upm_Id)-:t
+                     accum s.@preferred_country += t.preferred_country;
+
+          sessions = select t from visitors:s-(Visitor_HAS_Session)-:t
+                     accum t.@visitor_id += s.id, t.@preferred_country += s.@preferred_country;
+
+          log(true, "aggregating data from event to sessions");
+
+          /*tmp      = select t from sessions:s-(Event_BELONGS_TO_Session)-:t
+                     where getvid(t) % total_batch == batch_num
+                     accum t.@visitor_id += s.@visitor_id,
+                           t.@preferred_country += s.@preferred_country,
+                           t.@session_id += s.id,
+                           t.@session_seq_num += s.session_number,
+                           t.@session_start_ts += s.session_start_ts,
+                           t.@exp += s.experience_name;*/
+
+          log(true, "start to collect contents from event");
+
+          contents = {Content.*};
+          contents = select s from contents:s-(Event_VIEWS_Content)-:t
+                     accum t.@content_id += s.id, t.@content_type += s.p72_object_type;
+
+          log(true, "pushing products to events");
+
+          products = {Product.*};
+          products = select s from products:s-(Event_FOR_Product)-:t
+                     accum t.@product_list += s.id;
+
+          event_types = {Event_Type.*};
+          event_types = select s from event_types:s-(Event_HAS_Event_Type)-:t
+                        accum t.@action_group += s.action_group;
+
+    // Action Group: Discover/Choose/Purchase
+    // Action: PDP View and so on
+    // Click Activity: Product Viewed
+    // TODO: add login status, visitor ID,p15_localized_languag,preferred_country,Session,p1_app_version,device_type
+    // landing page is not in the data.
+
+    // + purhcase journey number, preferred geo, cp code(e7_cp_code)
+           output_file.println("action_group,action,upm_id,login_status,session_start_ts,session_sequence_number,visitor_id,preferred_country,language,session_id,click_activity,page_name,page_type,hit_time,app_version,device_type,object_id,object_type,prodcut_list,experience_name");
+          events = {Event.*};
+          events = select s from events:s-(Event_BELONGS_TO_Session)-:t
+                   accum
+                       //output_file.println(s.@action_group + "," + s.e111_event_name + "," + s.p50_post_prop50 + "," + s.e4_login_status + "," + datetime_format(s.@session_start_ts)+ "," + to_string(s.@session_seq_num) + "," + s.@visitor_id + "," + s.@preferred_country + "," + s.p15_localized_languag + "," + s.@session_id  + "," + s.p3_click_activity + "," + s.p7_page_name + "," + s.p17_page_type + "," + datetime_format(s.hit_dt_ts) + "," + s.p1_app_version + "," + s.device_type + "," + s.@content_id + "," + s.@content_type + ",\"" + s.@product_list + "\"," + s.@exp);
+
+     output_file.println(s.@action_group,s.e111_event_name,s.p50_post_prop50,s.e4_login_status,t.@session_start_ts,t.@session_seq_num ,
+                       t.@visitor_id,t.@preferred_country,s.p15_localized_languag,t.@session_id,s.p3_click_activity,s.p7_page_name,
+                       s.p17_page_type,s.hit_dt_ts,s.p1_app_version,s.device_type,s.@content_id,s.@content_type ,"\"" + s.@product_list + "\"", t.@exp);
 }
