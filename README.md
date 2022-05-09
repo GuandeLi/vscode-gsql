@@ -42,4 +42,5 @@
 		END
 	```
 ### functions:
-![Functions Example](https://user-images.githubusercontent.com/59431928/166932016-5aafd6d8-f0a5-4439-b4f0-5425ec301fa1.png)
+<img width="940" alt="image" src="https://user-images.githubusercontent.com/59431928/167333976-f4ee315d-0598-4b73-8482-3234dd931a64.png">
+
