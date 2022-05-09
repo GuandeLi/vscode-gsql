@@ -2,7 +2,7 @@
   "name": "vscode-gsql",
   "displayName": "vscode-gsql",
   "description": "VSCode extension for gsql",
-  "version": "0.0.9",
+  "version": "0.1.0",
   "author": "Orange",
   "license": "MIT",
   "repository": {
